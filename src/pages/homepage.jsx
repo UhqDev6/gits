@@ -27,9 +27,9 @@ export default function HomePage() {
     setCurrentPage(1);
   };
 
-  // const handleLastClick = () => {
-  //   setCurrentPage(totalPages);
-  // };
+  const handleLastClick = () => {
+    setCurrentPage(totalPages);
+  };
 
   useEffect(() => {
     fetchUsers();
@@ -68,6 +68,14 @@ export default function HomePage() {
           >
             Next
             <FaLongArrowAltRight />
+          </Button>
+          <Button
+            type="button"
+            onClick={() => handleLastClick()}
+            disabled={currentPage === totalPages}
+            className={`${currentPage === totalPages ? 'inline-flex items-center px-4 py-2 mr-3 text-sm font-medium text-gray-500 bg-gray-200 border border-gray-300 rounded-lg' : 'inline-flex items-center px-4 py-2 mr-3 text-sm font-medium text-gray-500 bg-white border border-gray-200 rounded-lg hover:bg-[#B1B2FF] hover:border-none hover:text-white shadow-lg'}`}
+          >
+            Last
           </Button>
         </div>
       </div>
