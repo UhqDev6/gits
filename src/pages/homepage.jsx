@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from 'react-icons/fa';
 import Button from '../components/atoms/Button';
+import Wrapper from '../components/atoms/Wrapper';
 import Table from '../components/moleculas/table';
 import api from '../utils/api';
 
@@ -8,11 +9,13 @@ export default function HomePage() {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchUsers = async () => {
     const result = await api.getDataEmployees(currentPage);
     setUsers(result.data);
     setTotalPages(result.total_pages);
+    setIsLoading(false);
   };
 
   const handlePrevClick = () => {
@@ -36,9 +39,9 @@ export default function HomePage() {
   }, [currentPage]);
 
   return (
-    <div>
+    <Wrapper>
       <div className="p-10">
-        <Table data={users} />
+        <Table data={users} isLoading={isLoading} />
       </div>
       <div className="pl-10 pr-10">
         <p className="tracking-wider font-light text-sm text-gray-600 flex justify-center pb-2">{`Page ${currentPage} of ${totalPages}`}</p>
@@ -79,6 +82,6 @@ export default function HomePage() {
           </Button>
         </div>
       </div>
-    </div>
+    </Wrapper>
   );
 }
